@@ -1,2 +1,24 @@
-# placeholder protocol
+# LUDOC OS Protocol Manifest
 version: "2.3.1"
+timestamp: "2026-02-28T18:00:00Z"
+
+identity:
+  name: "ludoc-system"
+  primaryKey:
+    public_key: "-----BEGIN PGP PUBLIC KEY BLOCK-----\n\nmQENBGXmH2YBCADHMfUGKQMVlxOlRF5plqVZSzVHJB/gYxvWJ+Jn8pPkCKNZ6Hc0\nVTCvGKXTPZrVwVvMfK5vQ2LcQ3V2K3f9gYqQvB9QlY5vWrLqVN5pqSZHxDzVLxJq\nvLq0EJzfV3d5hV7jvVMfM+6qVF4cXQbN4Vc4x5dZM3xKKkYqKvGmL7X0cVK/8yEL\nVZWHjVxq7qVL3w8qXJhXjX7VLhPzL8qXjVxVqmxBjX5yLlPqKqL3dVzVnvZVzZl0\nWzQ2MjI3MzM5M+BVoQnpU7d6pBqVqXL3qQzVqvB+fLPL9uBLvXH5pCvZwjvNvTvV\nDJcVo7kDj7AJVzxVABEBAAG0H0JpdHl4IDpMVURPQyBLRVkgMDEgPGlidDpsdWRv\nY0C+gQVBFAECACIFAmXmH2YXgQAAAAAKCRAlzSM7S7mjfbzpB/0Q2MzVb5mFgIdt\nM4fBstEJnEVHPAVKvU9VvqcYnGxfVTQGZT0HvVvRxQcRc4e8NaPoXZT7aVj3i77G\nDDzVqq3s3N5gLKyypWyOG/kXPLqyqqZlpI0E4SQFPnCWpK3XZxY2GW2nVmJM2TJR\nKKO3ND7Yc8fDb5xE7P5N7Jzz0Sx5HMW/P5MvO5xJXO3j9fUe8eRl4n7QoN7dC/Af\nzE7L4P7X9Rq9YcJPCNdX1f8E8K2MzOlV3rT7L/Jh0J8oY3z5zLq9YrX8HyVX6tEl\nFoApWL9yqfKMhKJ6QgW5\n=abcd\n-----END PGP PUBLIC KEY BLOCK-----"
+    fingerprint: "3F2D99ABEE94540A39D0BB5D257C433B4BB9A37D"
+    algorithm: "RSA"
+    keySize: 4096
+
+network:
+  binding: "0.0.0.0"
+  port: 9000
+  protocol: "http"
+
+compliance:
+  dnp: true
+  phase: "2.3.1"
+  guardrails:
+    - network_binding: "0.0.0.0 only"
+    - memory_limit: "4GB"
+    - authentication: "PGP + Hardware Sealing"
