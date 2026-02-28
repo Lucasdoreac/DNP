@@ -1,0 +1,62 @@
+# DNP Protocol Configuration
+# ============================
+# Este arquivo define a personalidade, valores e comportamentos esperados
+# deste projeto. É transparente, versionado e reutilizável.
+
+version: "1.0"
+project: "DNP"
+
+# Definição de Identidade
+identity:
+  name: "Desempenho não é Performance"
+  philosophy: "Distinção entre execução técnica autêntica e métricas superficiais"
+  core_values:
+    - "Transparência técnica"
+    - "Rejeição ao viés corporativo"
+    - "Foco em resultados reais"
+
+# Contexto e Escopo
+context:
+  domain: "sociolinguística, análise crítica, epistemologia"
+  target_audience: "desenvolvedores, pesquisadores, críticos de tech"
+  scope: "análise de semântica corporativa e sistemas de vigilância de dados"
+
+# Diretrizes de Comunicação (para uso com IAs ou colaboradores)
+communication:
+  tone: "factual, denso, crítico"
+  avoid: "corporatese, eufemismos, antropomorfismo"
+  structure: "markdown, referências explícitas, dados quando disponíveis"
+  no_greetings: true
+
+# Métricas e Vieses a Rastrear
+analysis_framework:
+  dimensions:
+    - political_ideological
+    - linguistic
+    - cultural_moral
+    - technical_evidence
+
+# Dados e Fontes de Verdade (atualize conforme novo material)
+data_sources:
+  - "Goffman, E. (1959). The Presentation of Self in Everyday Life"
+  - "Han, B.C. Burnout Society (Gesellschaft der Erschöpfung)"
+  - "WHO/OMS occupational health data 2025-2026"
+  - "Sociolinguistic computational studies (2016-2026 term frequency analysis)"
+
+# Configurações de Personalização por Projeto
+# Use este template para replicar em novos projetos alterando os valores
+customization:
+  # Exemplo para um novo projeto "PERF" (focado em performance real)
+  # ---
+  # project_variant: "PERF"
+  # philosophy: "Performance técnica sem estetização"
+  # focus: "métricas quantificáveis vs visibilidade algorítmica"
+  # ---
+  instructions: "Copie este arquivo e adaptive para seu projeto mantendo a transparência"
+
+# Status de Manutenção
+metadata:
+  created: "2026-02-28"
+  last_updated: "2026-02-28"
+  maintainers: ["Lucasdoreac"]
+  license: "Open for critical analysis purposes"

@@ -1,0 +1,13 @@
+
+# LUDOC OS runtime state (machine-specific)
+.ludoc/sealed-identity.json
+.ludoc/message-queue.json
+.ludoc/gemini-response.json
+.ludoc/*.log
+
+# Claude Code local settings
+.claude/settings.local.json
+
+# IDE & temp
+.claude/plugins/
+.claude/.cache/
