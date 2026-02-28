@@ -1,0 +1,4 @@
+# ignore runtime state and OS-specific artifacts
+.ludoc/
+node_modules/
+dist/
