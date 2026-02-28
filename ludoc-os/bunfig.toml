@@ -1,0 +1,5 @@
+[test]
+# Run tests with sufficient time for hardware UUID discovery
+# Hardware tests need time for PowerShell to execute WMI queries
+timeout = 60000
+root = "."
