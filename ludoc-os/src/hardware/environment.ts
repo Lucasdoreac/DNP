@@ -10,8 +10,9 @@
  * because process.platform === 'linux' on both WSL2 and real Linux.
  */
 
-import { execSync } from 'child_process';
+import { execSync, execFileSync } from 'child_process';
 import { readFileSync, existsSync } from 'fs';
+import { cpus, version } from 'os';
 
 export type PlatformType = 'windows-native' | 'wsl2' | 'linux' | 'macos';
 
@@ -25,9 +26,20 @@ export interface EnvironmentContext {
 
 export class EnvironmentDetector {
   /**
+   * Cache environment detection to avoid repeated expensive PowerShell calls
+   */
+  private static _cached: EnvironmentContext | null = null;
+
+  /**
    * Detect the current runtime environment
    */
   static async detect(): Promise<EnvironmentContext> {
+    // Return cached result if available
+    if (this._cached) {
+      console.log('[ENV] Returning cached environment context');
+      return this._cached;
+    }
+
     // Check platform
     const platform = this.detectPlatform();
 
@@ -43,13 +55,17 @@ export class EnvironmentDetector {
 
     const isVM = platform === 'wsl2';
 
-    return {
+    const context: EnvironmentContext = {
       platform,
       isVM,
       canAccessWindowsHost,
       cpuCount,
       osVersion,
     };
+
+    // Cache the result for future calls
+    this._cached = context;
+    return context;
   }
 
   /**
@@ -111,12 +127,21 @@ export class EnvironmentDetector {
   private static detectCPUCount(): number {
     try {
       if (process.platform === 'win32') {
-        const output = execSync('wmic cpu get NumberOfCores', {
-          encoding: 'utf-8',
-          stdio: ['pipe', 'pipe', 'ignore'],
-        });
-        const match = output.match(/\d+/);
-        if (match) return parseInt(match[0], 10);
+        try {
+          const output = execFileSync('powershell.exe', [
+            '-Command',
+            '(Get-WmiObject Win32_Processor).NumberOfCores',
+          ], {
+            encoding: 'utf-8',
+            stdio: ['pipe', 'pipe', 'ignore'],
+            timeout: 5000,
+          });
+          const match = output.trim().match(/\d+/);
+          if (match) return parseInt(match[0], 10);
+          return cpus().length || 1;
+        } catch (_inner) {
+          return cpus().length || 1;
+        }
       } else {
         const output = execSync('nproc', {
           encoding: 'utf-8',
@@ -125,10 +150,8 @@ export class EnvironmentDetector {
         return parseInt(output.trim(), 10);
       }
     } catch (_) {
-      // Fallback
+      return cpus().length || 1;
     }
-
-    return 1;
   }
 
   /**
@@ -137,13 +160,21 @@ export class EnvironmentDetector {
   private static detectOSVersion(): string {
     try {
       if (process.platform === 'win32') {
-        const output = execSync('wmic os get version', {
-          encoding: 'utf-8',
-          stdio: ['pipe', 'pipe', 'ignore'],
-        });
-        const match = output.match(/\d+\.\d+\.\d+/);
-        if (match) return match[0];
-        return 'Windows (unknown version)';
+        try {
+          const output = execFileSync('powershell.exe', [
+            '-Command',
+            '(Get-WmiObject Win32_OperatingSystem).Version',
+          ], {
+            encoding: 'utf-8',
+            stdio: ['pipe', 'pipe', 'ignore'],
+            timeout: 5000,
+          });
+          const match = output.trim().match(/\d+\.\d+/);
+          if (match) return `Windows ${match[0]}`;
+          return version();
+        } catch (_inner) {
+          return version();
+        }
       } else if (process.platform === 'darwin') {
         const output = execSync('sw_vers -productVersion', {
           encoding: 'utf-8',

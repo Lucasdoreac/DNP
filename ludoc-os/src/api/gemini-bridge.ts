@@ -1,5 +1,5 @@
-import { spawn, execSync } from "child_process";
-import { readFileSync, writeFileSync, unlinkSync } from "fs";
+import { execSync } from "child_process";
+import { readFileSync, writeFileSync } from "fs";
 
 /**
  * GEMINI BRIDGE - Comunicação direta com Gemini CLI
@@ -14,9 +14,7 @@ export class GeminiBridge {
   // Use gemini command directly (already in PATH via alias)
   // This is the most reliable way to invoke Gemini CLI
   private geminiCommand = "gemini";
-  private messageQueue: string[] = [];
   private activeProcesses: Set<number> = new Set();
-  private readonly MAX_CONCURRENT_PROCESSES = 2;
   private readonly PROCESS_TIMEOUT = 30000; // 30 seconds max (Gemini needs time to load)
   private pollInterval: NodeJS.Timeout | null = null;
   private isShuttingDown = false;
@@ -25,6 +23,11 @@ export class GeminiBridge {
    * Processa mensagem via Gemini CLI com timeout
    */
   async processMessage(signedMessage: string): Promise<string> {
+    // Reject messages during shutdown
+    if (this.isShuttingDown) {
+      throw new Error('[GEMINI-BRIDGE] Service is shutting down');
+    }
+
     return new Promise((resolve, reject) => {
       console.log(`[GEMINI-BRIDGE] Enviando para Gemini: "${signedMessage.substring(0, 100)}..."`);
       console.log(`[GEMINI-BRIDGE] DEBUG: geminiCommand = "${this.geminiCommand}"`);

@@ -161,8 +161,8 @@ export async function healthCheck(
     const host = serverHost || discoverServerHost();
     const response = await fetch(`http://${host}:${serverPort}/health`, {
       method: "GET",
-      timeout: 5000,
-    });
+      timeoutMs: 5000,
+    } as any);
     return response.ok;
   } catch (error) {
     console.error(`[LUDOC-AGENT] Health check failed: ${String(error)}`);
@@ -174,7 +174,7 @@ export async function healthCheck(
  * CLI Entry Point para testes
  */
 // @ts-ignore
-if (import.meta.main) {
+if ((import.meta as any).main) {
   const question = process.argv[2] || "What is LUDOC?";
 
   dispatchQuery(question)

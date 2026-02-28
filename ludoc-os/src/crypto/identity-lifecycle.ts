@@ -18,8 +18,6 @@
  */
 
 import { readFileSync, writeFileSync } from 'fs';
-import { join } from 'path';
-import * as crypto from 'crypto';
 
 export enum IdentityStatus {
   CREATED = 'created',

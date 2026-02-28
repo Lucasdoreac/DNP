@@ -54,7 +54,10 @@ describe('LUDOC Hardware - Phase 2.2', () => {
   // ================================================================
 
   describe('Environment Detection', () => {
+    console.log('[TEST] 📍 ENTERING Environment Detection block');
+    console.log('[TEST] Environment:', environment);
     it('should detect platform correctly', () => {
+      console.log('[TEST EXEC] ✅ Inside first test execution');
       expect(environment.platform).toMatch(/^(windows-native|wsl2|linux|macos)$/);
     });
 
@@ -88,7 +91,9 @@ describe('LUDOC Hardware - Phase 2.2', () => {
   // ================================================================
 
   describe('Hardware UUID Discovery', () => {
+    console.log('[TEST] Starting Hardware UUID Discovery tests...');
     it('should discover hardware UUID', () => {
+      console.log('[TEST] TEST #6: discover hardware UUID');
       expect(hardware.uuid).toBeDefined();
       expect(hardware.uuid.length).toBeGreaterThan(0);
     });
@@ -121,10 +126,13 @@ describe('LUDOC Hardware - Phase 2.2', () => {
   // ================================================================
 
   describe('Sealed Identity Creation', () => {
+    console.log('[TEST] Starting Sealed Identity Creation tests...');
     it('should create sealed identity with valid fingerprint', async () => {
+      console.log('[TEST] TEST #6: create sealed identity with valid fingerprint - STARTING');
       const testFingerprint = 'AAABBBCCCDDDEEEFFFGGGHHHHIIIJJJKKKKLLLLMMMM'; // 46 chars, valid
 
       sealed = await SealedIdentityManager.seal(testFingerprint);
+      console.log('[TEST] TEST #6: COMPLETED');
 
       expect(sealed.pgpFingerprint).toBe(testFingerprint);
       expect(sealed.hardwareUUID).toBe(hardware.uuid);

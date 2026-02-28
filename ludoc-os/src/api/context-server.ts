@@ -1,3 +1,5 @@
+/// <reference types="bun" />
+
 import { readFileSync } from "fs";
 import { PGPEngine } from "../crypto/pgp-engine.js";
 import { SealedIdentityManager } from "../crypto/sealed-identity.js";
@@ -12,7 +14,7 @@ import { SealedIdentityManager } from "../crypto/sealed-identity.js";
  */
 export class ContextServer {
   private sealed: any;
-  private publicKey: string;
+  private publicKey: string = "";
   private server: any;
 
   async init(port: number = 9000) {
@@ -129,6 +131,13 @@ export class ContextServer {
     }
 
     return new Response("Not found", { status: 404 });
+  }
+
+  /**
+   * Get server status (for monitoring/shutdown)
+   */
+  getServer() {
+    return this.server;
   }
 }
 

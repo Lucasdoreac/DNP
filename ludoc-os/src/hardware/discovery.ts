@@ -24,9 +24,22 @@ export interface UUIDDiscovery {
 
 export class HardwareDiscovery {
   /**
+   * Cache hardware UUID to avoid re-running expensive powershell.exe calls
+   * Each discovery takes 2-5 seconds; caching prevents 10x slowdown in tests
+   */
+  private static _cached: UUIDDiscovery | null = null;
+
+  /**
    * Main entry point: Get hardware UUID for current platform
+   * Returns cached result on subsequent calls (1ms instead of 5000ms)
    */
   static async getHardwareID(): Promise<UUIDDiscovery> {
+    // Return cached result if available
+    if (this._cached) {
+      console.log(`[HARDWARE] Returning cached UUID (previously discovered)`);
+      return this._cached;
+    }
+
     const env = await EnvironmentDetector.detect();
 
     console.log(`[HARDWARE] Detecting UUID on ${env.platform}...`);
@@ -56,6 +69,9 @@ export class HardwareDiscovery {
     }
 
     console.log(`[HARDWARE] UUID: ${discovery.uuid} (source: ${discovery.source}, confidence: ${discovery.confidence})`);
+
+    // Cache the result for future calls
+    this._cached = discovery;
     return discovery;
   }
 

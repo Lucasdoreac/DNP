@@ -14,7 +14,6 @@
  */
 
 import { PGPEngine } from './pgp-engine.js';
-import { SealedIdentityManager } from './sealed-identity.js';
 import * as crypto from 'crypto';
 
 export interface AuthChallenge {
