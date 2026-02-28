@@ -161,7 +161,7 @@ export async function healthCheck(
     const host = serverHost || discoverServerHost();
     const response = await fetch(`http://${host}:${serverPort}/health`, {
       method: "GET",
-      timeout: 5000,
+      timeoutMs: 5000, // Bun uses timeoutMs rather than timeout
     });
     return response.ok;
   } catch (error) {

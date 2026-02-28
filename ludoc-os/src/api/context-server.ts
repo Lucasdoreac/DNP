@@ -12,7 +12,7 @@ import { SealedIdentityManager } from "../crypto/sealed-identity.js";
  */
 export class ContextServer {
   private sealed: any;
-  private publicKey: string;
+  private publicKey: string = ""; // will be initialized from protocol.yaml
   private server: any;
 
   async init(port: number = 9000) {
@@ -42,6 +42,16 @@ export class ContextServer {
     console.log(`[CONTEXT SERVER] 🚀 Started on 0.0.0.0:${port}`);
     console.log(`[CONTEXT SERVER] PeerID: ${this.sealed.sealedHash.substring(0, 16)}`);
     console.log(`[CONTEXT SERVER] Awaiting signed dispatches...`);
+  }
+
+  /**
+   * Gracefully stop the HTTP server (used by tests or shutdown hooks)
+   */
+  stop(): void {
+    if (this.server && typeof this.server.stop === 'function') {
+      this.server.stop();
+      console.log('[CONTEXT SERVER] Stopped');
+    }
   }
 
   private async handleRequest(req: Request) {

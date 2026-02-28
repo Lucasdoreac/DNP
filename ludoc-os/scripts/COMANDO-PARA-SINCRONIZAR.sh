@@ -13,13 +13,21 @@ echo ""
 # 1. Copiar MEMORY.md
 echo "[1] Copiando MEMORY.md..."
 mkdir -p .claude
-cp /c/Users/ludoc/ludoc-workspace/.claude/MEMORY.md .claude/MEMORY.md
-echo "✅ MEMORY.md copiado"
+if [ -f "/c/Users/ludoc/ludoc-workspace/.claude/MEMORY.md" ]; then
+  cp /c/Users/ludoc/ludoc-workspace/.claude/MEMORY.md .claude/MEMORY.md
+  echo "✅ MEMORY.md copiado"
+else
+  echo "⚠️  arquivo de memória não encontrado; pulando"
+fi
 
 # 2. Copiar CLAUDE.md
 echo "[2] Copiando CLAUDE.md..."
-cp /c/Users/ludoc/ludoc-workspace/.claude/CLAUDE.md .claude/CLAUDE.md
-echo "✅ CLAUDE.md copiado"
+if [ -f "/c/Users/ludoc/ludoc-workspace/.claude/CLAUDE.md" ]; then
+  cp /c/Users/ludoc/ludoc-workspace/.claude/CLAUDE.md .claude/CLAUDE.md
+  echo "✅ CLAUDE.md copiado"
+else
+  echo "⚠️  CLAUDE.md não existe; gerencie manualmente"
+fi
 
 # 3. Atualizar .gitignore
 echo "[3] Atualizando .gitignore..."
@@ -40,10 +48,16 @@ cat >> .gitignore << 'EOF'
 EOF
 echo "✅ .gitignore atualizado"
 
-# 4. Criar branch
-echo "[4] Criando branch..."
-git checkout -b configure-project-structure
-echo "✅ Branch criado"
+# 4. Criar/selecionar branch
+echo "[4] Criando/checando branch..."
+BRANCH="configure-project-structure"
+if git rev-parse --verify "$BRANCH" >/dev/null 2>&1; then
+  git checkout "$BRANCH"
+  echo "✅ Branch '$BRANCH' existente, fazendo checkout"
+else
+  git checkout -b "$BRANCH"
+  echo "✅ Branch '$BRANCH' criado"
+fi
 
 # 5. Fazer commit
 echo "[5] Fazendo commit..."
@@ -67,37 +81,19 @@ echo "✅ Commit criado"
 
 # 6. Abrir PR
 echo "[6] Abrindo PR..."
-gh pr create \
-  --title "chore: configure project memory and settings structure" \
-  --body "Configure project memory and settings with Option C structure:
 
-## Changes
-- ✅ Move MEMORY.md to .claude/ (persistent across sessions)
-- ✅ Create CLAUDE.md with project guidelines
-- ✅ Update .gitignore for machine-specific runtime
+# push branch and create pr if it doesn't exist yet
+BRANCH="configure-project-structure"
+git push --set-upstream origin "$BRANCH" || true
 
-## Structure (Option C)
-\`\`\`
-.claude/              ← Claude Code config
-├── MEMORY.md        ← Shared project knowledge
-├── CLAUDE.md        ← Project guidelines
-└── settings.local.json (gitignored)
-
-.ludoc/              ← LUDOC OS runtime (gitignored)
-├── sealed-identity.json
-├── message-queue.json
-└── *.log
-\`\`\`
-
-## Benefits
-- Clear separation of concerns
-- Persistent memory for sessions
-- Machine-specific state excluded
-- Ready for Claude ↔ Copilot synchronization
-
-**Depends on:** PR #1 (awaiting merge)
-**Next:** PR #2 will integrate actual code
-"
+# if a PR already exists this will open another; rely on gh CLI fill
+if ! gh pr view --json number --jq '.number' --head "$BRANCH" >/dev/null 2>&1; then
+  gh pr create --fill --head "$BRANCH" --base main \
+    --title "chore: configure project memory and settings structure" \
+    --body "Configure project memory and settings with Option C structure:\n\n## Changes\n- ✅ Move MEMORY.md to .claude/ (persistent across sessions)\n- ✅ Create CLAUDE.md with project guidelines\n- ✅ Update .gitignore for machine-specific runtime\n\n## Structure (Option C)\n\`\`\`\n.claude/              ← Claude Code config\n├── MEMORY.md        ← Shared project knowledge\n├── CLAUDE.md        ← Project guidelines\n└── settings.local.json (gitignored)\n\n.ludoc/              ← LUDOC OS runtime (gitignored)\n├── sealed-identity.json\n├── message-queue.json\n└── *.log\n\`\`\`\n\n## Benefits\n- Clear separation of concerns\n- Persistent memory for sessions\n- Machine-specific state excluded\n- Ready for Claude ↔ Copilot synchronization\n\n**Depends on:** PR #1 (awaiting merge)\n**Next:** PR #2 will integrate actual code\n"
+else
+  echo "ℹ️  Pull request for $BRANCH já existe, não será recriado"
+fi
 
 echo ""
 echo "=========================================="

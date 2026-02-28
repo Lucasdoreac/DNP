@@ -4,5 +4,8 @@
   "scripts": {
     "test": "echo \"No tests yet\""
   },
-  "dependencies": {}
+  "dependencies": {},
+  "devDependencies": {
+    "@types/bun": "^0.1.0"
+  }
 }
