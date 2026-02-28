@@ -1,0 +1,6 @@
+[Service]
+Type=simple
+ExecStart=/usr/bin/bun /opt/ludoc/src/api/gemini-bridge.ts
+MemoryLimit=4G
+MemoryMax=4G
+CPUQuota=200%
