@@ -17,12 +17,12 @@ Bem-vindo ao Índice Mestre da trilha de aprendizado **dnp**. Este documento ser
 6. **[Módulo 06: Análise e Monetização Ética](./modules/06-server-monetization.md)**
 
 ### 🎙️ Materiais de Estudo (NotebookLM)
-*Os materiais em português estão sendo gerados e atualizados.*
-- 📊 **[Infográfico: Trilha de Desenvolvimento Ético](./artifacts/pt-br/infografico-desenvolvimento-etico.png)**
-- 📝 **[Quiz de Conhecimento](./artifacts/pt-br/quiz.md)**
-- 🃏 **[Flashcards de Estudo](./artifacts/pt-br/flashcards.md)**
-- 🎙️ **[Podcast: O Manifesto dnp (EN)](./artifacts/manifesto-audio.mp3)** *(Versão PT-BR em processamento)*
-- 🎥 **[Vídeo: Visão Geral do dnp (EN)](./artifacts/overview-video.mp4)** *(Versão PT-BR em processamento)*
+- 🎙️ **[Podcast: Engenharia Anticapitalista](./artifacts/pt-br/manifesto-audio.mp3)** - Discussão em áudio (PT-BR).
+- 🎥 **[Vídeo: Desempenho Não é Performance](./artifacts/pt-br/visao-geral-video.mp4)** - Resumo visual (PT-BR).
+- 📊 **[Infográfico: Guia de Desenvolvimento Soberano](./artifacts/pt-br/infografico-desenvolvimento-etico.png)** - Guia visual (PT-BR).
+- 🛝 **[Slides: Manifesto dnp](./artifacts/pt-br/manifesto-slides.pdf)** - Apresentação (PT-BR).
+- 📝 **[Quiz de Conhecimento](./artifacts/pt-br/quiz.md)** - Teste seus conhecimentos (PT-BR).
+- 🃏 **[Flashcards de Estudo](./artifacts/pt-br/flashcards.md)** - Cartões de memorização (PT-BR).
 
 ---
 
