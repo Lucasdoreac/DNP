@@ -99,12 +99,15 @@ export class BootstrapV2 {
 
         const protocolContent = readFileSync(protocolPath, 'utf-8');
         const signatureContent = readFileSync(sigPath, 'utf-8');
-        const publicKey = result.protocol.identity?.primaryKey?.public_key;
+        let publicKey = result.protocol.identity?.primaryKey?.public_key;
 
         if (!publicKey) {
           errors.push('[BOOTSTRAP v2] No public key in protocol.yaml identity.primaryKey.public_key');
           return result; // Abort
         }
+
+        // YAML multiline strings preserve indentation; OpenPGP.js requires clean formatting
+        publicKey = publicKey.split('\n').map((line) => line.trim()).join('\n');
 
         signatureValid = await PGPEngine.verify(protocolContent, signatureContent, publicKey);
 

@@ -28,11 +28,14 @@ export class ContextServer {
     const protocolContent = readFileSync("./protocol.yaml", "utf-8");
     const yaml = await import("yaml");
     const protocol = yaml.parse(protocolContent);
-    this.publicKey = protocol.identity?.primaryKey?.public_key || "";
+    let publicKey = protocol.identity?.primaryKey?.public_key || "";
 
-    if (!this.publicKey) {
+    if (!publicKey) {
       throw new Error("[CONTEXT] No public key in protocol.yaml");
     }
+
+    // YAML multiline strings preserve indentation; OpenPGP.js requires clean formatting
+    this.publicKey = publicKey.split('\n').map((line) => line.trim()).join('\n');
 
     // Criar servidor HTTP
     this.server = Bun.serve({

@@ -1,0 +1,13 @@
+{
+  "name": "dnp-monorepo",
+  "private": true,
+  "workspaces": [
+    "game-dev",
+    "ludoc-os",
+    "packages/*"
+  ],
+  "scripts": {
+    "test": "bun test",
+    "lint": "bun x eslint ."
+  }
+}

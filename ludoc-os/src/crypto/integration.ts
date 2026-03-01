@@ -90,10 +90,12 @@ export class SovereignValidator {
         signatureValid = false;
       } else {
         try {
+          // YAML multiline strings preserve indentation; OpenPGP.js requires clean formatting
+          const cleanPublicKey = publicKey.public_key.split('\n').map((line) => line.trim()).join('\n');
           signatureValid = await PGPEngine.verify(
             protocolFileContent,
             signatureFileContent,
-            publicKey.public_key
+            cleanPublicKey
           );
 
           if (!signatureValid) {
@@ -137,7 +139,7 @@ export class SovereignValidator {
     protocol: Protocol,
     signatureFileContent?: string
   ): Promise<void> {
-    const publicKey = protocol.identity?.primaryKey?.public_key;
+    let publicKey = protocol.identity?.primaryKey?.public_key;
 
     if (!publicKey) {
       console.warn('[BOOTSTRAP] No public key in identity. Skipping signature validation.');
@@ -148,6 +150,9 @@ export class SovereignValidator {
       console.warn('[BOOTSTRAP] No signature file. Skipping signature validation.');
       return;
     }
+
+    // YAML multiline strings preserve indentation; OpenPGP.js requires clean formatting
+    publicKey = publicKey.split('\n').map((line) => line.trim()).join('\n');
 
     // This will throw if signature is invalid
     await BootstrapLock.enforceProtocolIntegrity(

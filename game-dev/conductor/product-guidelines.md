@@ -1,20 +1,18 @@
 # Product Guidelines
 
 ## Prose and Communication Style
-### Tone: Dialectical Materialism
-- **Focus:** Documentation and communication must prioritize concrete, material conditions and objective facts over abstract theories.
-- **Approach:** Use a direct, analytical tone that acknowledges the contradictions within the system (e.g., the paradox of using capitalist platforms to build anti-capitalist tools).
-- **Goal:** Clarity through the analysis of the material world, avoiding performative language and unnecessary jargon.
+### Tone: Command-line Style
+- **Focus:** Documentation must be concise, direct, and action-oriented.
+- **Approach:** Use imperative language, clear instructions, and minimize conversational filler. Think of documentation as a series of executable commands and clear state descriptions.
+- **Goal:** Efficiency for both human developers and AI agents reading the codebase.
 
 ## Branding and Visual Identity
-### Concept: Visual Paradox
-- **Aesthetic:** The visual identity should embody the "paradoxo materialista"—the tension between traditional performance metrics and the "desempenho" (performance as fulfillment/realization) advocated by the project.
-- **Metaphors:** Use imagery that suggests both industrial utility and organic growth, reflecting the eco-socialist pilar.
-- **Palette:** Prioritize high-contrast, functional colors that emphasize structural elements rather than purely decorative ones.
+### Concept: Modular Materialism
+- **Modular Branding:** Each subproject (game-dev, ludoc-os, packages) maintains a distinct identity while remaining anchored in the core dnp framework. This allows for specialized aesthetics suited to each domain.
+- **Materialist Aesthetic:** The overall look and feel should be industrial and minimalist. Avoid "performative" bloat; prioritize structural clarity and utilitarian design that reflects the material reality of the code and hardware.
 
 ## User Experience (UX) Principles
-### Principle: Conscious Friction
-- **Interaction:** Instead of "frictionless" experiences that encourage mindless consumption, the UX should introduce intentional moments of reflection.
-- **Transparency:** The interface should expose the material impact of actions (e.g., resource usage, time spent) to encourage conscious decision-making.
-- **Resilience over Speed:** Prioritize the durability and reliability of the interaction over immediate speed, aligning with the "degrowth" philosophy.
-- **Education:** The interface should serve as a pedagogical tool, helping users understand the underlying material processes of the software.
+### Principle: Agent-First Sovereignty
+- **Agent-First Design:** Systems are designed for seamless interaction between human developers and AI agents. APIs, logs, and structures should be highly readable and predictable for automated tools.
+- **Contextual Awareness:** Every operation within the monorepo must provide clear context and maintain memory. This ensures that agents always have the necessary state to act effectively across different subprojects.
+- **Sovereign UX:** Prioritize local control, privacy, and offline-first capabilities. The user (and their agents) should have full ownership and autonomy over the interaction flow, independent of centralized cloud dependencies.
