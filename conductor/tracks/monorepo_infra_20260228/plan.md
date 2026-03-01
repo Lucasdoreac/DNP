@@ -12,8 +12,8 @@ This plan outlines the technical steps to configure the monorepo for modularity 
 
 ## Phase 2: Core Shared Packages Implementation
 
-- [ ] **Task: Write Tests: Verify shared logger functionality.**
-- [ ] **Task: Implement @dnp/logger package in packages/logger.**
+- [x] **Task: Write Tests: Verify shared logger functionality.** (60d2ad0)
+- [~] **Task: Implement @dnp/logger package in packages/logger.**
 - [ ] **Task: Write Tests: Verify shared context-memory functionality.**
 - [ ] **Task: Implement @dnp/context-memory package in packages/context-memory.**
 - [ ] **Task: Conductor - User Manual Verification 'Shared Packages' (Protocol in workflow.md)**
