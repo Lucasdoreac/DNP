@@ -4,5 +4,5 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 ---
 
-- [~] **Track: Modularizar Monorepo e Configurar Infraestrutura de Pacotes Compartilhados**
+- [x] **Track: Modularizar Monorepo e Configurar Infraestrutura de Pacotes Compartilhados**
   *Link: [./tracks/monorepo_infra_20260228/](./tracks/monorepo_infra_20260228/)*
