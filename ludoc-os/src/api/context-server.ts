@@ -35,7 +35,7 @@ export class ContextServer {
     }
 
     // YAML multiline strings preserve indentation; OpenPGP.js requires clean formatting
-    this.publicKey = publicKey.split('\n').map((line) => line.trim()).join('\n');
+    this.publicKey = publicKey.split('\n').map((line: string) => line.trim()).join('\n');
 
     // Criar servidor HTTP
     this.server = Bun.serve({
@@ -113,7 +113,73 @@ export class ContextServer {
       }
     }
 
-    // GET /context/response - Retornar resposta de Gemini
+    // GET /context/next - Return next command for Gemini CLI to process
+    if (req.method === "GET" && url.pathname === "/context/next") {
+      try {
+        let queue: any[] = [];
+        try {
+          const queueContent = fs.readFileSync(".ludoc/message-queue.json", "utf-8");
+          queue = JSON.parse(queueContent);
+        } catch (_) {
+          // Empty queue
+        }
+
+        if (queue.length > 0) {
+          const nextMessage = queue[0];
+          // Remove from queue (claim it)
+          const newQueue = queue.slice(1);
+          fs.writeFileSync(".ludoc/message-queue.json", JSON.stringify(newQueue, null, 2));
+
+          return new Response(JSON.stringify({
+            success: true,
+            message: nextMessage.text,
+            signature: nextMessage.signature,
+            timestamp: nextMessage.timestamp
+          }), { status: 200 });
+        } else {
+          return new Response(JSON.stringify({
+            success: true,
+            message: null
+          }), { status: 200 });
+        }
+      } catch (error) {
+        return new Response(
+          JSON.stringify({ error: String(error) }),
+          { status: 500 }
+        );
+      }
+    }
+
+    // POST /context/response - Gemini CLI sends response back
+    if (req.method === "POST" && url.pathname === "/context/response") {
+      try {
+        const body = await req.json() as any;
+        const { message, response } = body;
+
+        // Save response
+        const responseData = {
+          originalMessage: message,
+          response: response,
+          respondedAt: new Date().toISOString(),
+          source: "gemini-cli"
+        };
+
+        fs.writeFileSync(".ludoc/gemini-response.json", JSON.stringify(responseData, null, 2));
+
+        console.log(`\n[CONTEXT SERVER] ✅ Response received from Gemini CLI`);
+        console.log(`   Original: ${message.substring(0, 50)}...`);
+        console.log(`   Response: ${response.substring(0, 50)}...`);
+
+        return new Response(JSON.stringify({ success: true }), { status: 200 });
+      } catch (error) {
+        return new Response(
+          JSON.stringify({ error: String(error) }),
+          { status: 400 }
+        );
+      }
+    }
+
+    // GET /context/response - Retornar resposta de Gemini (legacy)
     if (req.method === "GET" && url.pathname === "/context/response") {
       try {
         const response = fs.readFileSync(".ludoc/gemini-response.json", "utf-8");
