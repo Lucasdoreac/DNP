@@ -23,6 +23,17 @@ Esta trilha foi projetada para transformar o aprendizado acadêmico em prática 
 6.  **[Módulo 06: Análise e Monetização Ética](./modules/06-server-monetization.md)**
     - Gestão de infraestrutura resiliente e modelos de sustento soberano.
 
+## Materiais de Estudo Gerados (NotebookLM)
+
+Para aprofundar seu aprendizado, geramos os seguintes materiais multimídia através do NotebookLM:
+
+- 🎙️ **[Podcast: O Manifesto dnp](./artifacts/manifesto-audio.mp3)** - Uma discussão em áudio sobre a filosofia e técnica do projeto.
+- 🎥 **[Vídeo: Visão Geral do dnp](./artifacts/overview-video.mp4)** - Um resumo visual e narrado de todo o ecossistema.
+- 📊 **[Infográfico: Trilha de Desenvolvimento Ético](./artifacts/ethical-game-dev-infographic.png)** - Um guia visual das etapas de aprendizado.
+- 🛝 **[Slides: Desenvolvimento Soberano no Roblox](./artifacts/sovereign-roblox-slides.pdf)** - Apresentação detalhada sobre Rojo, TS e soberania.
+- 📝 **[Quiz de Conhecimento](./artifacts/quiz.md)** - Teste seus conhecimentos sobre os módulos.
+- 🃏 **[Flashcards de Estudo](./artifacts/flashcards.md)** - Cartões para memorização dos conceitos chave.
+
 ## Instruções para NotebookLM
 
 Para obter o melhor proveito deste conteúdo no NotebookLM:
