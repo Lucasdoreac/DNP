@@ -1,15 +1,67 @@
-version: "2.0.0"
+version: 2.0.0
 framework: ludoc
-
 identity:
-  name: "ludoc-system"
-  organization: "ludoc-productions"
+  name: ludoc-system
+  organization: ludoc-productions
   primaryKey:
     type: pgp
-    fingerprint: "C76C6D4E4D99663CB11C27BFEC7EC82D04BE5B82"
-    public_key: "-----BEGIN PGP PUBLIC KEY BLOCK-----\n\n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\nC7Yd\n=wznd\n-----END PGP PUBLIC KEY BLOCK-----"
-  email: "system@ludoc.dev"
+    fingerprint: C76C6D4E4D99663CB11C27BFEC7EC82D04BE5B82
+    public_key: |
+      -----BEGIN PGP PUBLIC KEY BLOCK-----
 
+      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
+      =pX5l
+      -----END PGP PUBLIC KEY BLOCK-----
+  email: system@ludoc.dev
 standards:
   packageManager: bun
   shell: bash
@@ -17,46 +69,38 @@ standards:
   git:
     convention: conventional-commits
     signCommits: false
-
 network:
   allowedBinds:
-    - "0.0.0.0"
+    - 0.0.0.0
   forbiddenBinds:
-    - "127.0.0.1"
+    - 127.0.0.1
   syncEndpoints: []
-
 instructions:
-  globalClaude: "./.claude/CLAUDE.md"
-  globalAgents: "./.claude/AGENTS.md"
-  projectSpecific: "./.ludoc/rules.md"
-
+  globalClaude: ./.claude/CLAUDE.md
+  globalAgents: ./.claude/AGENTS.md
+  projectSpecific: ./.ludoc/rules.md
 machines:
-  - name: "wsl2-primary"
+  - name: wsl2-primary
     os: linux
     arch: x86_64
-    path: "/mnt/c/Users/ludoc/DNP/ludoc-os"
+    path: /mnt/c/Users/ludoc/DNP/ludoc-os
     primary: true
     syncEnabled: true
-
 environments:
   - name: development
     machines:
       - wsl2-primary
     automation: full
-
 sync:
   strategy: git-first
   frequency: auto
   targets: []
-
 automation:
   preCommit: []
   postCommit: []
   enforceSignatures: false
-
 tools: {}
-
 versioning:
   scheme: semver
-  currentVersion: "2.0.0"
+  currentVersion: 2.0.0
   releaseChannel: stable

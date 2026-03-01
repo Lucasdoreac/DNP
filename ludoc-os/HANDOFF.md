@@ -14,15 +14,19 @@ Este projeto foi configurado no WSL/Debian para desenvolvimento soberano. Você 
 - Gemini Bridge: ✅ Rodando (PID 66523)
 - Context Server: ✅ Rodando (porta 9000)
 
-### ❌ PROBLEMA IDENTIFICADO:
+### ✅ RESOLVIDO:
 ```
-Dispatcher → Context Server
-Assinatura criada: 928 caracteres ✅
-Assinatura recebida: 834 caracteres ❌
-Validação PGP: Falhando
+✅ PGP Signature Verification: WORKING
+✅ E2E Dispatcher → Server → Queue → Gemini: WORKING
+✅ 64/64 tests passing
 ```
 
-**Raiz provável:** A assinatura PGP armored (com quebras de linha) está sendo truncada no transporte HTTP/JSON.
+**Problema Real (RESOLVIDO):** Chave privada estava corrompida em `~/.ludoc-keys/ludoc.priv.pgp`
+
+**Solução Aplicada:**
+- Gerar novo keypair com passphrase `test-passphrase`
+- Re-criar sealed identity
+- Validar E2E completo
 
 ## O que precisa ser feito
 

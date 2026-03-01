@@ -25,7 +25,7 @@ mkdirSync(keyDir, { recursive: true });
 // Generate new keypair
 const result = await PGPEngine.generateKeypair(
   'ludoc',
-  'ludoc@localhost',
+  'ludoc@ludoc.dev',
   passphrase
 );
 
