@@ -4,7 +4,7 @@
 
 set -e
 
-PROJECT_DIR="/c/Users/ludoc/ludoc-workspace"
+PROJECT_DIR="/mnt/c/Users/ludoc/DNP/ludoc-os"
 SYSTEMD_DIR="/etc/systemd/system"
 USER="ludoc"
 

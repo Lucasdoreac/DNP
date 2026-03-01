@@ -3,7 +3,7 @@
 # Valida fluxo COMPLETO: Dispatcher → Server → Queue → Gemini → Response
 
 set -e
-cd /c/Users/ludoc/ludoc-workspace
+cd /mnt/c/Users/ludoc/DNP/ludoc-os
 
 echo "========================================="
 echo "  LUDOC Phase 2.3 - E2E Complete Test"

@@ -1,0 +1,14 @@
+{
+  "name": "ludoc-kernel-v2",
+  "version": "2.0.0",
+  "standards": {
+    "packageManager": "bun",
+    "shell": "bash",
+    "language": "typescript"
+  },
+  "protocol": "./protocol.yaml",
+  "sync": {
+    "strategy": "git-first",
+    "enabled": true
+  }
+}

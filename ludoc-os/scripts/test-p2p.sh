@@ -8,7 +8,7 @@ echo ""
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
-cd ~/ludoc-workspace
+cd /mnt/c/Users/ludoc/DNP/ludoc-os
 
 # Limpar arquivos antigos
 echo "1. Limpando arquivos antigos..."

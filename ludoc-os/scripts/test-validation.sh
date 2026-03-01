@@ -2,7 +2,7 @@
 # LUDOC Phase 2.3 - Teste de Validação Real
 
 set -e
-cd /c/Users/ludoc/ludoc-workspace
+cd /mnt/c/Users/ludoc/DNP/ludoc-os
 
 echo "========================================="
 echo "  LUDOC Phase 2.3 - Validação Prática"
@@ -47,7 +47,7 @@ else
   echo "⏳ Fila não foi criada (Context Server pode não estar rodando)"
   echo ""
   echo "Para teste completo, execute em outro terminal:"
-  echo "  cd /c/Users/ludoc/ludoc-workspace"
+  echo "  cd /mnt/c/Users/ludoc/DNP/ludoc-os"
   echo "  bun run ./src/api/context-server.ts"
   echo ""
   echo "Depois re-execute este script"

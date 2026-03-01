@@ -1,24 +1,62 @@
-# LUDOC OS Protocol Manifest
-version: "2.3.1"
-timestamp: "2026-02-28T18:00:00Z"
+version: "2.0.0"
+framework: ludoc
 
 identity:
   name: "ludoc-system"
+  organization: "ludoc-productions"
   primaryKey:
-    public_key: "-----BEGIN PGP PUBLIC KEY BLOCK-----\n\nmQENBGXmH2YBCADHMfUGKQMVlxOlRF5plqVZSzVHJB/gYxvWJ+Jn8pPkCKNZ6Hc0\nVTCvGKXTPZrVwVvMfK5vQ2LcQ3V2K3f9gYqQvB9QlY5vWrLqVN5pqSZHxDzVLxJq\nvLq0EJzfV3d5hV7jvVMfM+6qVF4cXQbN4Vc4x5dZM3xKKkYqKvGmL7X0cVK/8yEL\nVZWHjVxq7qVL3w8qXJhXjX7VLhPzL8qXjVxVqmxBjX5yLlPqKqL3dVzVnvZVzZl0\nWzQ2MjI3MzM5M+BVoQnpU7d6pBqVqXL3qQzVqvB+fLPL9uBLvXH5pCvZwjvNvTvV\nDJcVo7kDj7AJVzxVABEBAAG0H0JpdHl4IDpMVURPQyBLRVkgMDEgPGlidDpsdWRv\nY0C+gQVBFAECACIFAmXmH2YXgQAAAAAKCRAlzSM7S7mjfbzpB/0Q2MzVb5mFgIdt\nM4fBstEJnEVHPAVKvU9VvqcYnGxfVTQGZT0HvVvRxQcRc4e8NaPoXZT7aVj3i77G\nDDzVqq3s3N5gLKyypWyOG/kXPLqyqqZlpI0E4SQFPnCWpK3XZxY2GW2nVmJM2TJR\nKKO3ND7Yc8fDb5xE7P5N7Jzz0Sx5HMW/P5MvO5xJXO3j9fUe8eRl4n7QoN7dC/Af\nzE7L4P7X9Rq9YcJPCNdX1f8E8K2MzOlV3rT7L/Jh0J8oY3z5zLq9YrX8HyVX6tEl\nFoApWL9yqfKMhKJ6QgW5\n=abcd\n-----END PGP PUBLIC KEY BLOCK-----"
-    fingerprint: "3F2D99ABEE94540A39D0BB5D257C433B4BB9A37D"
-    algorithm: "RSA"
-    keySize: 4096
+    type: pgp
+    fingerprint: "C76C6D4E4D99663CB11C27BFEC7EC82D04BE5B82"
+    public_key: "-----BEGIN PGP PUBLIC KEY BLOCK-----\n\n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\nC7Yd\n=wznd\n-----END PGP PUBLIC KEY BLOCK-----"
+  email: "system@ludoc.dev"
+
+standards:
+  packageManager: bun
+  shell: bash
+  language: typescript
+  git:
+    convention: conventional-commits
+    signCommits: false
 
 network:
-  binding: "0.0.0.0"
-  port: 9000
-  protocol: "http"
+  allowedBinds:
+    - "0.0.0.0"
+  forbiddenBinds:
+    - "127.0.0.1"
+  syncEndpoints: []
 
-compliance:
-  dnp: true
-  phase: "2.3.1"
-  guardrails:
-    - network_binding: "0.0.0.0 only"
-    - memory_limit: "4GB"
-    - authentication: "PGP + Hardware Sealing"
+instructions:
+  globalClaude: "./.claude/CLAUDE.md"
+  globalAgents: "./.claude/AGENTS.md"
+  projectSpecific: "./.ludoc/rules.md"
+
+machines:
+  - name: "wsl2-primary"
+    os: linux
+    arch: x86_64
+    path: "/mnt/c/Users/ludoc/DNP/ludoc-os"
+    primary: true
+    syncEnabled: true
+
+environments:
+  - name: development
+    machines:
+      - wsl2-primary
+    automation: full
+
+sync:
+  strategy: git-first
+  frequency: auto
+  targets: []
+
+automation:
+  preCommit: []
+  postCommit: []
+  enforceSignatures: false
+
+tools: {}
+
+versioning:
+  scheme: semver
+  currentVersion: "2.0.0"
+  releaseChannel: stable

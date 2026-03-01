@@ -13,8 +13,8 @@ echo ""
 # 1. Copiar MEMORY.md
 echo "[1] Copiando MEMORY.md..."
 mkdir -p .claude
-if [ -f "/c/Users/ludoc/ludoc-workspace/.claude/MEMORY.md" ]; then
-  cp /c/Users/ludoc/ludoc-workspace/.claude/MEMORY.md .claude/MEMORY.md
+if [ -f "/mnt/c/Users/ludoc/DNP/ludoc-os/.claude/MEMORY.md" ]; then
+  cp /mnt/c/Users/ludoc/DNP/ludoc-os/.claude/MEMORY.md .claude/MEMORY.md
   echo "✅ MEMORY.md copiado"
 else
   echo "⚠️  arquivo de memória não encontrado; pulando"
@@ -22,8 +22,8 @@ fi
 
 # 2. Copiar CLAUDE.md
 echo "[2] Copiando CLAUDE.md..."
-if [ -f "/c/Users/ludoc/ludoc-workspace/.claude/CLAUDE.md" ]; then
-  cp /c/Users/ludoc/ludoc-workspace/.claude/CLAUDE.md .claude/CLAUDE.md
+if [ -f "/mnt/c/Users/ludoc/DNP/ludoc-os/.claude/CLAUDE.md" ]; then
+  cp /mnt/c/Users/ludoc/DNP/ludoc-os/.claude/CLAUDE.md .claude/CLAUDE.md
   echo "✅ CLAUDE.md copiado"
 else
   echo "⚠️  CLAUDE.md não existe; gerencie manualmente"

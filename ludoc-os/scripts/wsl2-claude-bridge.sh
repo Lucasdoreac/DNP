@@ -19,7 +19,7 @@ if [ -z "$WINDOWS_HOST" ]; then
 fi
 
 CONTEXT_SERVER="http://${WINDOWS_HOST}:9001"
-SEALED_IDENTITY_PATH="/mnt/c/Users/ludoc/ludoc-workspace/.ludoc/sealed-identity.json"
+SEALED_IDENTITY_PATH="/mnt/mnt/c/Users/ludoc/DNP/ludoc-os/.ludoc/sealed-identity.json"
 PRIVATE_KEY_PATH="/mnt/c/Users/ludoc/.ludoc-keys/ludoc.priv.pgp"
 
 echo "[WSL2-CLAUDE-BRIDGE] 🌉 Acessando LUDOC P2P Hub"
@@ -34,7 +34,7 @@ query_ludoc() {
     echo "[WSL2-CLAUDE-BRIDGE] 📨 Enviando: $question"
 
     # Usar dispatch do ludoc-workspace para assinar
-    cd /mnt/c/Users/ludoc/ludoc-workspace
+    cd /mnt/mnt/c/Users/ludoc/DNP/ludoc-os
 
     # Dispatcher assina + envia para Windows host
     # --host é necessário em WSL2 para alcançar Windows (não pode ser localhost ou 0.0.0.0)
