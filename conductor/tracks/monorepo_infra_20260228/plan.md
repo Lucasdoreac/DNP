@@ -21,5 +21,5 @@ This plan outlines the technical steps to configure the monorepo for modularity 
 ## Phase 3: Ingestion and Documentation
 
 - [x] **Task: Create the Ingestion Guide for existing portfolios.** (4436122)
-- [ ] **Task: Create a template generator for new subprojects within the monorepo.**
+- [x] **Task: Create a template generator for new subprojects within the monorepo.** (81faada)
 - [ ] **Task: Conductor - User Manual Verification 'Documentation and Ingestion' (Protocol in workflow.md)**
