@@ -49,7 +49,8 @@ export class PGPEngine {
 
     const publicKeyArmored = result.publicKey;
     const privateKeyArmored = result.privateKey;
-    const publicKey = await openpgp.readKey({ armoredKey: publicKeyArmored });
+    const cleanPublic = this.ensureProperArmorFormat(publicKeyArmored);
+    const publicKey = await openpgp.readKey({ armoredKey: cleanPublic });
     const fingerprint = publicKey.getFingerprint();
 
     return {
@@ -57,6 +58,27 @@ export class PGPEngine {
       privateKey: privateKeyArmored,
       fingerprint: fingerprint.toUpperCase(),
     };
+  }
+
+  /**
+   * Ensure PGP armored strings have the mandatory blank line between headers and data.
+   * YAML and some editors often strip this line, causing OpenPGP.js to fail.
+   */
+  private static ensureProperArmorFormat(armored: string): string {
+    if (!armored) return armored;
+    
+    // Normalize line endings to \n
+    let clean = armored.replace(/\r\n/g, '\n').trim();
+    
+    // Check if there is a blank line after the first line (the header)
+    const lines = clean.split('\n');
+    if (lines.length > 1 && lines[1].trim() !== '') {
+      // Inserir linha em branco após o cabeçalho
+      lines.splice(1, 0, '');
+      return lines.join('\n');
+    }
+    
+    return clean;
   }
 
   /**
@@ -74,7 +96,8 @@ export class PGPEngine {
   ): Promise<string> {
     console.log('[PGP] Signing protocol.yaml...');
 
-    const privateKey = await openpgp.readPrivateKey({ armoredKey: privateKeyArmored });
+    const cleanKey = this.ensureProperArmorFormat(privateKeyArmored);
+    const privateKey = await openpgp.readPrivateKey({ armoredKey: cleanKey });
 
     let unlockedKey = privateKey;
     if (passphrase) {
@@ -112,8 +135,11 @@ export class PGPEngine {
     console.log('[PGP] Verifying protocol.yaml signature...');
 
     try {
-      const publicKey = await openpgp.readKey({ armoredKey: publicKeyArmored });
-      const signature = await openpgp.readSignature({ armoredSignature: detachedSignature });
+      const cleanKey = this.ensureProperArmorFormat(publicKeyArmored);
+      const cleanSig = this.ensureProperArmorFormat(detachedSignature);
+      
+      const publicKey = await openpgp.readKey({ armoredKey: cleanKey });
+      const signature = await openpgp.readSignature({ armoredSignature: cleanSig });
 
       const verified = await openpgp.verify({
         message: await openpgp.createMessage({ text: message }),
@@ -159,7 +185,8 @@ export class PGPEngine {
    * @returns Fingerprint in uppercase hex
    */
   static async getFingerprint(publicKeyArmored: string): Promise<string> {
-    const publicKey = await openpgp.readKey({ armoredKey: publicKeyArmored });
+    const cleanKey = this.ensureProperArmorFormat(publicKeyArmored);
+    const publicKey = await openpgp.readKey({ armoredKey: cleanKey });
     return publicKey.getFingerprint().toUpperCase();
   }
 
@@ -176,7 +203,8 @@ export class PGPEngine {
     createdAt: Date;
     expiresAt?: Date;
   }> {
-    const publicKey = await openpgp.readKey({ armoredKey: publicKeyArmored });
+    const cleanKey = this.ensureProperArmorFormat(publicKeyArmored);
+    const publicKey = await openpgp.readKey({ armoredKey: cleanKey });
 
     const user = await publicKey.getPrimaryUser();
     const name = user?.user?.userID?.name || 'Unknown';

@@ -14,7 +14,9 @@
     "validate": "node dist/kernel/validator.js",
     "test": "vitest",
     "test:watch": "vitest --watch",
-    "dev": "tsc --watch"
+    "dev": "tsc --watch",
+    "serve": "bun src/api/context-server.ts",
+    "serve:watch": "bun --watch src/api/context-server.ts"
   },
   "dependencies": {
     "openpgp": "^5.11.0",

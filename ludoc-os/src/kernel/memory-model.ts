@@ -14,7 +14,7 @@
  * - [x] Revocation tracking across tiers
  */
 
-import { readFileSync, writeFileSync, mkdirSync } from 'fs';
+import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'fs';
 import { join } from 'path';
 import * as crypto from 'crypto';
 
@@ -120,7 +120,7 @@ export class TernaryMemoryModel {
    * Automatically promotes to HOT if accessed frequently.
    * Updates access count for tiering decisions.
    */
-  async get(id: string): Promise<any> {
+  async get(id: string, skipPromotion: boolean = false): Promise<any> {
     // Check HOT first
     if (this.hotMemory.has(id)) {
       const entry = this.hotMemory.get(id)!;
@@ -142,9 +142,12 @@ export class TernaryMemoryModel {
       entry.accessed = Date.now();
       entry.accessCount++;
 
-      // Check if should promote to HOT
+      // Update file with new accessCount
+      writeFileSync(join(this.warmPath, `${id}.json`), JSON.stringify(entry, null, 2));
+
+      // Check if should promote to HOT (only if not skipped)
       const warmPolicy = this.policies.get(MemoryTier.WARM)!;
-      if (entry.accessCount >= warmPolicy.promotionThreshold) {
+      if (!skipPromotion && entry.accessCount >= warmPolicy.promotionThreshold) {
         await this.promote(id, MemoryTier.WARM, MemoryTier.HOT);
       }
 
@@ -278,5 +281,38 @@ export class TernaryMemoryModel {
     } catch {
       return false;
     }
+  }
+
+  /**
+   * Auto-migration loop
+   *
+   * Periodically migrates entries between tiers based on access patterns.
+   * HOT → WARM (if demoted)
+   * WARM → COLD (if old)
+   */
+  async startAutoMigration(intervalMs: number = 30000): Promise<void> {
+    setInterval(async () => {
+      let migrations = 0;
+
+      // Check HOT tier for demotion candidates
+      for (const [id, entry] of this.hotMemory.entries()) {
+        const hotPolicy = this.policies.get(MemoryTier.HOT)!;
+
+        // Demote if accessed beyond threshold OR expired
+        const shouldDemote = entry.accessCount >= hotPolicy.demotionThreshold ||
+          (entry.expiresAt && entry.expiresAt < Date.now());
+
+        if (shouldDemote) {
+          await this.demote(id);
+          migrations++;
+        }
+      }
+
+      if (migrations > 0) {
+        console.log(`[MEMORY MODEL] 🔄 Auto-migration: ${migrations} entries moved to WARM`);
+      }
+    }, intervalMs);
+
+    console.log(`[MEMORY MODEL] ⏱️  Auto-migration started (interval: ${intervalMs}ms)`);
   }
 }

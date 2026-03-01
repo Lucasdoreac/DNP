@@ -107,7 +107,7 @@ export class BootstrapV2 {
         }
 
         // YAML multiline strings preserve indentation; OpenPGP.js requires clean formatting
-        publicKey = publicKey.split('\n').map((line) => line.trim()).join('\n');
+        publicKey = publicKey.split('\n').map((line: string) => line.trim()).join('\n');
 
         signatureValid = await PGPEngine.verify(protocolContent, signatureContent, publicKey);
 

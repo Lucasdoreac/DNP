@@ -7,6 +7,7 @@
 
 import { describe, it, expect, beforeAll } from 'vitest';
 import { PGPEngine, BootstrapLock } from '../src/crypto/pgp-engine.js';
+import { TEST_KEYS_NORMALIZED as TEST_KEYS } from './fixtures/test-keys.js';
 
 describe('LUDOC Crypto - Phase 2.1 (Sovereign Identity)', () => {
   let publicKey: string;
@@ -14,23 +15,17 @@ describe('LUDOC Crypto - Phase 2.1 (Sovereign Identity)', () => {
   let fingerprint: string;
 
   // ================================================================
-  // Setup: Generate keypair for testing
+  // Setup: Use pre-generated keys to avoid RSA-4096 timeout
   // ================================================================
 
   beforeAll(async () => {
-    console.log('[TEST SETUP] Generating test keypair...');
+    console.log('[TEST SETUP] Using pre-generated test keypair...');
 
-    const result = await PGPEngine.generateKeypair(
-      'ludoc-test',
-      'test@ludoc.dev',
-      'test-passphrase'
-    );
+    publicKey = TEST_KEYS.publicKey;
+    privateKey = TEST_KEYS.privateKey;
+    fingerprint = TEST_KEYS.fingerprint;
 
-    publicKey = result.publicKey;
-    privateKey = result.privateKey;
-    fingerprint = result.fingerprint;
-
-    console.log(`[TEST SETUP] Keypair generated. Fingerprint: ${fingerprint}`);
+    console.log(`[TEST SETUP] Pre-loaded keypair. Fingerprint: ${fingerprint}`);
   });
 
   // ================================================================
@@ -60,7 +55,7 @@ identity:
   name: ludoc
   organization: ludoc-productions`;
 
-    const signature = await PGPEngine.sign(protocolContent, privateKey, 'test-passphrase');
+    const signature = await PGPEngine.sign(protocolContent, privateKey, TEST_KEYS.passphrase);
 
     expect(signature).toBeDefined();
     expect(signature.length).toBeGreaterThan(0);
@@ -74,7 +69,7 @@ identity:
   it('should verify a valid signature', async () => {
     const message = 'protocol.yaml signed content';
 
-    const signature = await PGPEngine.sign(message, privateKey, 'test-passphrase');
+    const signature = await PGPEngine.sign(message, privateKey, TEST_KEYS.passphrase);
     const isValid = await PGPEngine.verify(message, signature, publicKey);
 
     expect(isValid).toBe(true);
@@ -88,7 +83,7 @@ identity:
     const originalMessage = 'original protocol content';
     const tamperedMessage = 'tampered protocol content';
 
-    const signature = await PGPEngine.sign(originalMessage, privateKey, 'test-passphrase');
+    const signature = await PGPEngine.sign(originalMessage, privateKey, TEST_KEYS.passphrase);
     const isValid = await PGPEngine.verify(tamperedMessage, signature, publicKey);
 
     expect(isValid).toBe(false);
@@ -123,7 +118,7 @@ identity:
 
   it('should allow bootstrap with valid signature', async () => {
     const protocolContent = 'protocol.yaml content';
-    const signature = await PGPEngine.sign(protocolContent, privateKey, 'test-passphrase');
+    const signature = await PGPEngine.sign(protocolContent, privateKey, TEST_KEYS.passphrase);
 
     // Should NOT throw
     await expect(
@@ -153,7 +148,7 @@ identity:
     const originalContent = 'original protocol content';
     const tamperedContent = 'tampered protocol content';
 
-    const signature = await PGPEngine.sign(originalContent, privateKey, 'test-passphrase');
+    const signature = await PGPEngine.sign(originalContent, privateKey, TEST_KEYS.passphrase);
 
     // Should throw because content doesn't match signature
     await expect(
@@ -187,7 +182,7 @@ network:
     - "127.0.0.1"`;
 
     // Step 1: Sovereign signs the protocol
-    const signature = await PGPEngine.sign(protocolYaml, privateKey, 'test-passphrase');
+    const signature = await PGPEngine.sign(protocolYaml, privateKey, TEST_KEYS.passphrase);
 
     // Step 2: Signature is stored in protocol.yaml.sig
     // Step 3: Both files are committed to git
