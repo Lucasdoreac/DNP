@@ -23,6 +23,7 @@ Bem-vindo ao Índice Mestre da trilha de aprendizado **dnp**. Este documento ser
 - 🛝 **[Slides: Manifesto dnp](./artifacts/pt-br/manifesto-slides.pdf)** - Apresentação (PT-BR).
 - 📝 **[Quiz de Conhecimento](./artifacts/pt-br/quiz.md)** - Teste seus conhecimentos (PT-BR).
 - 🃏 **[Flashcards de Estudo](./artifacts/pt-br/flashcards.md)** - Cartões de memorização (PT-BR).
+- 🎁 **[Bônus: Inspiração Materialista](./artifacts/bonus-video.html)** - Player de vídeo especial.
 
 ---
 
