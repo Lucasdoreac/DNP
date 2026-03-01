@@ -1,23 +1,41 @@
 # LUDOC OS - Sovereign Software Identity Framework
 
-**Status:** ✅ **Phase 2.0-2.4 COMPLETE** (Production Ready)
-**Version:** 2.4.0
-**Test Coverage:** 64/64 passing (100%)
-**Framework:** TypeScript ESM + Bun
-**Stability:** Cryptographically Enforced
+**Status:** ✅ **Phase 3.0 COMPLETE** (Sovereign Swarm)
+**Version:** 3.0.0
+**Persistence:** SQLite (ludoc.db)
+**Network:** P2P Gossip Protocol
 
 ---
 
 ## 🎯 What Is LUDOC OS?
 
-LUDOC OS is a **complete sovereign identity framework** for software systems that:
+LUDOC OS is a **complete sovereign identity framework** that now supports **Multi-Agent Coordination**:
 
-- ✅ **Binds identity to cryptographic keys** (Phase 2.1: PGP signatures)
-- ✅ **Seals identity to hardware** (Phase 2.2: Hardware UUID binding)
-- ✅ **Enables P2P communication** (Phase 2.3: Context Server + Message Bridge)
-- ✅ **Authenticates mutually** (Phase 2.4: Zero-authority peer validation)
-- ✅ **Manages memory hierarchically** (Phase 2.4: HOT/WARM/COLD tiers)
-- ✅ **Rotates keys automatically** (Phase 2.4: 90-day lifecycle)
+- ✅ **P2P Gossip Protocol** (Phase 3.0: Decentralized agent communication)
+- ✅ **SQLite Persistent Store** (Phase 2.5: Zero-downtime hot-reloads)
+- ✅ **Mutual Authentication** (Phase 2.4: Cryptographic trust)
+- ✅ **Ternary Memory Model** (Phase 2.4: HOT/WARM/COLD tiers)
+- ✅ **Hardware Binding** (Phase 2.2: Sealed identity)
+
+---
+
+## 🏗️ Architecture Overview
+
+### Phases Implemented
+
+... (previous phases) ...
+
+Phase 2.5: Dynamic Sovereignty (SQLite)
+├─ Persistent Message Queue in SQLite
+├─ Persistent Memory Tiers in SQLite
+├─ Hot-Reload with `bun --watch` (No message loss)
+└─ Status: ✅ COMPLETE
+
+Phase 3.0: Multi-Agent Swarm (Gossip)
+├─ Peer Registry: Dynamic discovery of agent nodes
+├─ Gossip Protocol: Message spreading with TTL and De-duplication
+├─ Multi-Node support: Ports 9000, 9001, etc.
+└─ Status: ✅ COMPLETE
 
 **The Core Philosophy:**
 > "The hardware is free only when identity is sealed to hardware."
